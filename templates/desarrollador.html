@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Desarrollador</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <style>
+    /* Estilos para la página del desarrollador */
+    .dev-container {
+      text-align: center;
+      margin-top: 50px;
+    }
+    .dev-container img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+    .telegram-btn {
+      background-color: #0088cc;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
+    .telegram-btn:hover {
+      background-color: #0077b5;
+    }
+    /* Botón de modo oscuro/claro similar al de index */
+    #modo-btn {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      border-radius: 5px;
+      margin: 5px;
+    }
+    #modo-btn:hover {
+      background-color: #45a049;
+      transform: scale(1.1);
+    }
+    /* Botón para volver atrás en la esquina superior izquierda */
+    #back-btn {
+      background-color: #f39c12;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      position: absolute;
+      left: 10px;
+      top: 10px;
+    }
+    #back-btn:hover {
+      background-color: #e67e22;
+      transform: scale(1.1);
+    }
+    header {
+      position: relative;
+      padding: 20px;
+      /* Dejamos el header sin título para que se vea solo el botón de volver */
+      text-align: center;
+    }
+  </style>
+</head>
+<body class="light-mode">
+  <!-- 🔥 Preloader (opcional) 🔥 -->
+  <div id="preloader">
+    <div class="loader"></div>
+  </div>
+
+  <!-- 🔥 Botón de modo oscuro/claro 🔥 -->
+  <button id="modo-btn">🌙 Modo oscuro</button>
+
+  <header>
+    <!-- Botón "Volver atrás" en la esquina superior izquierda -->
+    <button id="back-btn" onclick="window.location.href='{{ url_for('portada') }}'">⬅ Volver atrás</button>
+  </header>
+
+  <section class="dev-container">
+    <img src="{{ url_for('static', filename='img/perfil.jpg') }}" alt="Perfil">
+    <p><strong>Nombre:</strong> Daniel</p>
+    <p><strong>Edad:</strong> 15</p>
+    <button class="telegram-btn" onclick="window.open('https://t.me/exzzex', '_blank')">
+      📩 Contactar en Telegram
+    </button>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Darkness e.x</p>
+  </footer>
+
+  <!-- 🔥 JavaScript para preloader y modo oscuro/claro 🔥 -->
+  <script>
+    // Ocultar preloader al cargar la página
+    window.onload = function() {
+      document.getElementById("preloader").style.display = "none";
+    };
+
+    // Modo oscuro y claro
+    const modoBtn = document.getElementById("modo-btn");
+    const body = document.body;
+
+    modoBtn.addEventListener("click", function () {
+      if (body.classList.contains("light-mode")) {
+        body.classList.remove("light-mode");
+        body.classList.add("dark-mode");
+        modoBtn.textContent = "☀️ Modo claro";
+      } else {
+        body.classList.remove("dark-mode");
+        body.classList.add("light-mode");
+        modoBtn.textContent = "🌙 Modo oscuro";
+      }
+    });
+  </script>
+</body>
+</html>

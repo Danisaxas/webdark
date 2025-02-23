@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Wikipedia</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="light-mode">
+    <!-- 🔥 Preloader 🔥 -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+    
+    <!-- 🔥 Botón de modo oscuro 🔥 -->
+    <button id="modo-btn">🌙 Modo oscuro</button>
+
+    <header>
+        <h1>Bienvenido a Mi Wikipedia</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('portada') }}">Portada</a></li>
+            <li><a href="{{ url_for('historia') }}">Historia</a></li>
+            <li><a href="{{ url_for('ciencia') }}">Ciencia</a></li>
+            <li><a href="{{ url_for('arte') }}">Arte</a></li>
+            <li><a href="{{ url_for('desarrollador') }}">Desarrollador</a></li>
+        </ul>
+    </nav>
+
+    <section class="content">
+        <h2>Artículo Destacado</h2>
+        <p><strong>La Revolución Francesa</strong> - Un evento histórico clave que cambió la política y la sociedad de Francia en el siglo XVIII.</p>
+        <a href="{{ url_for('historia') }}" class="btn">Leer más</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Mi Wikipedia - Creado con Flask</p>
+    </footer>
+
+    <!-- 🔥 JavaScript para preloader y modo oscuro 🔥 -->
+    <script>
+        // 🔥 Ocultar preloader al cargar la página
+        window.onload = function () {
+            document.getElementById("preloader").style.display = "none";
+        };
+
+        // 🔥 Modo oscuro y claro
+        const modoBtn = document.getElementById("modo-btn");
+        const body = document.body;
+
+        modoBtn.addEventListener("click", function () {
+            if (body.classList.contains("light-mode")) {
+                body.classList.remove("light-mode");
+                body.classList.add("dark-mode");
+                modoBtn.textContent = "☀️ Modo claro";
+            } else {
+                body.classList.remove("dark-mode");
+                body.classList.add("light-mode");
+                modoBtn.textContent = "🌙 Modo oscuro";
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arte - Mi Wikipedia</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* ✅ Botones animados */
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+            transform: scale(1.1);
+        }
+
+        /* ✅ Efectos de hover en los enlaces */
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            padding: 10px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #4CAF50;
+            transform: scale(1.1);
+        }
+
+        /* ✅ Diseño responsive para celulares */
+        @media (max-width: 768px) {
+            nav ul {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin-bottom: 10px;
+            }
+
+            .content {
+                padding: 10px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <!-- 🔥 Preloader 🔥 -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+    
+    <!-- 🔥 Botón de modo oscuro 🔥 -->
+    <button id="modo-btn">🌙 Modo oscuro</button>
+
+    <header>
+        <h1>Arte</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('historia') }}">Historia</a></li>
+            <li><a href="{{ url_for('ciencia') }}">Ciencia</a></li>
+            <li><a href="{{ url_for('arte') }}">Arte</a></li>
+        </ul>
+    </nav>
+
+    <section class="content">
+        <h2>Explorando el Arte</h2>
+        <p>El arte es una forma de expresión que ha existido desde tiempos prehistóricos, evolucionando a lo largo de la historia en diversas formas y estilos.</p>
+    </section>
+
+    <!-- 🔥 Botón para regresar a la portada 🔥 -->
+    <button onclick="window.location.href='{{ url_for('portada') }}'">Regresar atrás</button>
+
+    <footer>
+        <p>&copy; 2025 Mi Wikipedia - Creado con Flask</p>
+    </footer>
+
+    <!-- 🔥 JavaScript para preloader y modo oscuro 🔥 -->
+    <script>
+        // 🔥 Ocultar preloader al cargar la página
+        window.onload = function () {
+            document.getElementById("preloader").style.display = "none";
+        };
+
+        // 🔥 Modo oscuro y claro
+        const modoBtn = document.getElementById("modo-btn");
+        const body = document.body;
+
+        modoBtn.addEventListener("click", function () {
+            if (body.classList.contains("light-mode")) {
+                body.classList.remove("light-mode");
+                body.classList.add("dark-mode");
+                modoBtn.textContent = "☀️ Modo claro";
+            } else {
+                body.classList.remove("dark-mode");
+                body.classList.add("light-mode");
+                modoBtn.textContent = "🌙 Modo oscuro";
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historia - Mi Wikipedia</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <header>
+        <h1>La Historia del Mundo: Un Viaje en el Tiempo</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('portada') }}">Inicio</a></li>
+            <li><a href="{{ url_for('historia') }}">Historia</a></li>
+            <li><a href="{{ url_for('ciencia') }}">Ciencia</a></li>
+            <li><a href="{{ url_for('arte') }}">Arte</a></li>
+        </ul>
+    </nav>
+
+    <section class="content">
+        <h2>📜 Períodos Históricos</h2>
+        <ul>
+            <li><strong>Edad Antigua</strong> (3000 a.C. - 476 d.C.) - Egipto, Roma, Grecia.</li>
+            <li><strong>Edad Media</strong> (476 - 1492) - Castillos, caballeros y el feudalismo.</li>
+            <li><strong>Edad Moderna</strong> (1492 - 1789) - Descubrimientos y Revolución Francesa.</li>
+            <li><strong>Edad Contemporánea</strong> (1789 - Actualidad) - Guerras Mundiales y avances tecnológicos.</li>
+        </ul>
+
+        <h2>⚔️ Eventos Claves</h2>
+        <div class="historia-evento">
+            <h3>📖 La Revolución Francesa (1789)</h3>
+            <p>Un movimiento que cambió el destino de Francia y el mundo, terminando con la monarquía y dando paso a la democracia.</p>
+        </div>
+
+        <div class="historia-evento">
+            <h3>⚔️ La Segunda Guerra Mundial (1939-1945)</h3>
+            <p>El conflicto más devastador de la humanidad, con millones de víctimas y cambios geopolíticos irreversibles.</p>
+        </div>
+
+        <div class="historia-evento">
+            <h3>🏛️ La Independencia de América (1776-1824)</h3>
+            <p>Un proceso en el que varias naciones de América lograron su libertad del dominio europeo.</p>
+        </div>
+
+        <h2>📜 Cita Histórica</h2>
+        <blockquote>"Aquellos que no pueden recordar el pasado están condenados a repetirlo." – George Santayana</blockquote>
+
+        <a href="{{ url_for('portada') }}" class="btn">Volver a la Portada</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Mi Wikipedia - Sección de Historia</p>
+    </footer>
+
+</body>
+</html>
