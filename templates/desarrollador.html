@@ -33,33 +33,33 @@
     }
 
     /* Fragmentos de código animados */
-    .code-snippet, .icon {
+    .code-snippet {
       position: absolute;
-      font-size: 16px;
+      font-size: 18px;
       font-family: monospace;
-      opacity: 0.8;
+      opacity: 0.9;
       white-space: nowrap;
       animation: moveLeft 12s linear infinite;
     }
 
-    /* Colores estilo Python, PHP, HTML */
-    .color-blue { color: #3572A5; }   /* Python */
-    .color-yellow { color: #F7DF1E; } /* JavaScript */
-    .color-red { color: #E34C26; }    /* HTML */
-    .color-green { color: #4F5D95; }  /* PHP */
-
-    /* Iconos de lenguajes (dibujados como cajas de texto) */
-    .icon {
-      width: 50px;
-      height: 50px;
-      opacity: 0.8;
+    /* Estilos para los iconos de código */
+    .code-icon {
       display: inline-block;
-      text-align: center;
-      line-height: 50px;
-      font-size: 24px;
-      background-color: #333;
+      padding: 15px 25px;
+      margin: 15px;
+      background-color: #1e2a38; /* Azul marina */
       color: white;
-      border-radius: 5px;
+      font-size: 24px;
+      font-family: 'Courier New', monospace;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      opacity: 0.9;
+      transform: translateY(0);
+      transition: transform 0.3s ease;
+    }
+
+    .code-icon:hover {
+      transform: translateY(-10px);
     }
 
     /* Animación horizontal (de derecha a izquierda) */
@@ -172,6 +172,16 @@
     </button>
   </section>
 
+  <!-- Iconos de programación como elementos de texto -->
+  <section class="code-snippets">
+    <div class="code-icon">&lt;code&gt;</div>
+    <div class="code-icon">echo "Hello World";</div>
+    <div class="code-icon">&lt;?php echo "PHP"; ?&gt;</div>
+    <div class="code-icon">console.log("JavaScript");</div>
+    <div class="code-icon">SELECT * FROM users;</div>
+  </section>
+
+  <!-- Historia de Python -->
   <div class="history">
     <span>
       Python es un lenguaje de programación interpretado, de alto nivel, creado por Guido van Rossum en 1991. Fue diseñado para ser fácil de leer y escribir, con una sintaxis clara y un fuerte enfoque en la legibilidad del código. Ha ganado popularidad por su simplicidad y potencia, siendo usado en diversos campos, desde desarrollo web hasta inteligencia artificial.
@@ -231,20 +241,7 @@
       setTimeout(() => snippet.remove(), 12000);
     }
 
-    function createIcon() {
-      const icon = document.createElement("div");
-      icon.className = "icon";
-      icon.textContent = [
-        "PY", "JS", "PHP", "HTML"
-      ][Math.floor(Math.random() * 4)];
-      icon.style.top = Math.random() * 100 + "vh";
-      icon.style.animationDuration = Math.random() * 5 + 5 + "s";
-      background.appendChild(icon);
-      setTimeout(() => icon.remove(), 12000);
-    }
-
     setInterval(createCodeSnippet, 500);
-    setInterval(createIcon, 2000);
   </script>
 
 </body>
