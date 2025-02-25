@@ -12,103 +12,166 @@
       padding: 0;
       overflow: hidden;
       font-family: Arial, sans-serif;
+      transition: background 0.5s ease;
     }
+
+    /* Contenedor del fondo animado */
     .background {
       position: fixed;
-      width: 100%;
-      height: 100%;
       top: 0;
       left: 0;
+      width: 100%;
+      height: 100%;
       z-index: -1;
-      background: url('{{ url_for('static', filename='img/code-bg.gif') }}') repeat;
-      background-size: cover;
-      filter: brightness(0.5);
+      background: linear-gradient(45deg, #1e1e1e, #2a2a2a);
     }
+
+    /* Animaciones con íconos de programación */
+    .background span {
+      position: absolute;
+      font-size: 24px;
+      color: rgba(255, 255, 255, 0.2);
+      animation: float 10s linear infinite;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+      }
+    }
+
+    /* Estilos para la página del desarrollador */
     .dev-container {
       text-align: center;
       margin-top: 50px;
-      color: white;
     }
+
     .dev-container img {
       width: 100px;
       height: 100px;
       border-radius: 50%;
       margin-bottom: 10px;
     }
-    .btn-container {
+
+    .telegram-btn {
+      background-color: #0088cc;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
+
+    .telegram-btn:hover {
+      background-color: #0077b5;
+    }
+
+    /* Botones alineados en una fila */
+    .button-container {
       display: flex;
       justify-content: center;
       gap: 10px;
       margin-top: 20px;
     }
-    .telegram-btn, #modo-btn {
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 5px;
-      transition: background 0.3s ease, transform 0.3s ease;
-    }
-    .telegram-btn {
-      background-color: #0088cc;
-      color: white;
-      border: none;
-    }
-    .telegram-btn:hover {
-      background-color: #0077b5;
-      transform: scale(1.1);
-    }
-    #modo-btn {
+
+    /* Botón de modo oscuro */
+    #modo-btn, #back-btn {
       background-color: #4CAF50;
       color: white;
       border: none;
-    }
-    #modo-btn:hover {
-      background-color: #45a049;
-      transform: scale(1.1);
-    }
-    #back-btn {
-      position: absolute;
-      left: 10px;
-      top: 10px;
-      background-color: #f39c12;
-      color: white;
-      border: none;
       padding: 10px 20px;
       font-size: 16px;
       cursor: pointer;
+      transition: transform 0.3s ease, background-color 0.3s ease;
       border-radius: 5px;
-      transition: background 0.3s ease, transform 0.3s ease;
     }
+
+    #modo-btn:hover, #back-btn:hover {
+      background-color: #45a049;
+      transform: scale(1.1);
+    }
+
+    /* Botón volver */
+    #back-btn {
+      background-color: #f39c12;
+    }
+
     #back-btn:hover {
       background-color: #e67e22;
-      transform: scale(1.1);
     }
   </style>
 </head>
-<body>
+<body class="light-mode">
+  
+  <!-- Fondo animado -->
   <div class="background"></div>
-  <button id="back-btn" onclick="window.location.href='{{ url_for('portada') }}'">⬅ Volver atrás</button>
+
+  <!-- Contenedor de botones alineados -->
+  <div class="button-container">
+    <button id="modo-btn">🌙 Modo oscuro</button>
+    <button id="back-btn" onclick="window.location.href='{{ url_for('portada') }}'">⬅ Volver atrás</button>
+  </div>
+
   <section class="dev-container">
     <img src="{{ url_for('static', filename='img/perfil.jpg') }}" alt="Perfil">
     <p><strong>Nombre:</strong> Daniel</p>
     <p><strong>Edad:</strong> 15</p>
-    <div class="btn-container">
-      <button class="telegram-btn" onclick="window.open('https://t.me/exzzex', '_blank')">📩 Contactar en Telegram</button>
-      <button id="modo-btn">🌙 Modo oscuro</button>
-    </div>
+    <button class="telegram-btn" onclick="window.open('https://t.me/exzzex', '_blank')">
+      📩 Contactar en Telegram
+    </button>
   </section>
+
+  <footer>
+    <p>&copy; 2025 Darkness e.x</p>
+  </footer>
+
+  <!-- JavaScript -->
   <script>
+    // Modo oscuro y claro
     const modoBtn = document.getElementById("modo-btn");
     const body = document.body;
+
     modoBtn.addEventListener("click", function () {
-      if (body.classList.contains("dark-mode")) {
-        body.classList.remove("dark-mode");
-        modoBtn.textContent = "🌙 Modo oscuro";
-      } else {
+      if (body.classList.contains("light-mode")) {
+        body.classList.remove("light-mode");
         body.classList.add("dark-mode");
         modoBtn.textContent = "☀️ Modo claro";
+      } else {
+        body.classList.remove("dark-mode");
+        body.classList.add("light-mode");
+        modoBtn.textContent = "🌙 Modo oscuro";
       }
     });
+
+    // Generar elementos animados con lenguajes de programación
+    const techIcons = ["💻", "👨‍💻", "🖥️", "📱", "🕹️", "🎮", "⚙️", "💾", "📟", "🔧"];
+    const background = document.querySelector(".background");
+
+    function createIcon() {
+      const icon = document.createElement("span");
+      icon.textContent = techIcons[Math.floor(Math.random() * techIcons.length)];
+      icon.style.left = Math.random() * 100 + "vw";
+      icon.style.top = "100vh";
+      icon.style.animationDuration = Math.random() * 5 + 5 + "s";
+      background.appendChild(icon);
+
+      setTimeout(() => {
+        icon.remove();
+      }, 10000);
+    }
+
+    setInterval(createIcon, 500);
   </script>
+
 </body>
 </html>
