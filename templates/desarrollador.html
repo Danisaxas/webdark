@@ -6,16 +6,15 @@
   <title>Desarrollador</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   <style>
-    /* Fondo animado */
+    /* Estilos generales */
     body {
       margin: 0;
       padding: 0;
-      overflow: hidden;
       font-family: Arial, sans-serif;
-      transition: background 0.5s ease;
+      transition: background 0.5s ease, color 0.5s ease;
     }
 
-    /* Contenedor del fondo animado */
+    /* Fondo del código animado */
     .background {
       position: fixed;
       top: 0;
@@ -23,35 +22,74 @@
       width: 100%;
       height: 100%;
       z-index: -1;
-      background: linear-gradient(45deg, #1e1e1e, #2a2a2a);
+      background: #ffffff;
+      transition: background 0.5s ease;
     }
 
-    /* Animaciones con íconos de programación */
-    .background span {
+    .dark-mode .background {
+      background: #121212;
+    }
+
+    /* Fragmentos de código animados */
+    .code-snippet {
       position: absolute;
-      font-size: 24px;
-      color: rgba(255, 255, 255, 0.2);
+      font-size: 16px;
+      font-family: monospace;
+      opacity: 0.8;
+      white-space: nowrap;
       animation: float 10s linear infinite;
     }
 
+    /* Colores estilo Python, PHP, HTML */
+    .color-blue { color: #3572A5; }   /* Python */
+    .color-yellow { color: #F7DF1E; } /* JavaScript */
+    .color-red { color: #E34C26; }    /* HTML */
+    .color-green { color: #4F5D95; }  /* PHP */
+
     @keyframes float {
-      0% {
-        transform: translateY(0);
-        opacity: 0;
-      }
-      50% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-100vh);
-        opacity: 0;
-      }
+      0% { transform: translateY(100vh); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-100vh); opacity: 0; }
     }
 
-    /* Estilos para la página del desarrollador */
+    /* Contenedor de botones */
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+    }
+
+    /* Botones */
+    #modo-btn, #back-btn {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    #modo-btn:hover, #back-btn:hover {
+      background-color: #45a049;
+      transform: scale(1.1);
+    }
+
+    #back-btn {
+      background-color: #f39c12;
+    }
+
+    #back-btn:hover {
+      background-color: #e67e22;
+    }
+
+    /* Contenido principal */
     .dev-container {
       text-align: center;
       margin-top: 50px;
+      position: relative;
+      z-index: 2;
     }
 
     .dev-container img {
@@ -75,40 +113,6 @@
     .telegram-btn:hover {
       background-color: #0077b5;
     }
-
-    /* Botones alineados en una fila */
-    .button-container {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 20px;
-    }
-
-    /* Botón de modo oscuro */
-    #modo-btn, #back-btn {
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: transform 0.3s ease, background-color 0.3s ease;
-      border-radius: 5px;
-    }
-
-    #modo-btn:hover, #back-btn:hover {
-      background-color: #45a049;
-      transform: scale(1.1);
-    }
-
-    /* Botón volver */
-    #back-btn {
-      background-color: #f39c12;
-    }
-
-    #back-btn:hover {
-      background-color: #e67e22;
-    }
   </style>
 </head>
 <body class="light-mode">
@@ -116,12 +120,13 @@
   <!-- Fondo animado -->
   <div class="background"></div>
 
-  <!-- Contenedor de botones alineados -->
+  <!-- Botones alineados en la parte superior -->
   <div class="button-container">
-    <button id="modo-btn">🌙 Modo oscuro</button>
     <button id="back-btn" onclick="window.location.href='{{ url_for('portada') }}'">⬅ Volver atrás</button>
+    <button id="modo-btn">🌙 Modo oscuro</button>
   </div>
 
+  <!-- Contenido principal -->
   <section class="dev-container">
     <img src="{{ url_for('static', filename='img/perfil.jpg') }}" alt="Perfil">
     <p><strong>Nombre:</strong> Daniel</p>
@@ -153,24 +158,35 @@
       }
     });
 
-    // Generar elementos animados con lenguajes de programación
-    const techIcons = ["💻", "👨‍💻", "🖥️", "📱", "🕹️", "🎮", "⚙️", "💾", "📟", "🔧"];
+    // Fragmentos de código en movimiento
+    const codeSnippets = [
+      '<section class="dev-container">', // HTML
+      'def hello_world():',               // Python
+      '  print("Hola Mundo")',            // Python
+      'console.log("Hola Mundo");',       // JavaScript
+      'echo "Hola Mundo";',               // PHP
+      'SELECT * FROM users;',             // SQL
+      '</section>',                        // HTML
+    ];
+
+    const colors = ['color-blue', 'color-yellow', 'color-red', 'color-green'];
     const background = document.querySelector(".background");
 
-    function createIcon() {
-      const icon = document.createElement("span");
-      icon.textContent = techIcons[Math.floor(Math.random() * techIcons.length)];
-      icon.style.left = Math.random() * 100 + "vw";
-      icon.style.top = "100vh";
-      icon.style.animationDuration = Math.random() * 5 + 5 + "s";
-      background.appendChild(icon);
+    function createCodeSnippet() {
+      const snippet = document.createElement("div");
+      snippet.textContent = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+      snippet.classList.add("code-snippet", colors[Math.floor(Math.random() * colors.length)]);
+      snippet.style.left = Math.random() * 100 + "vw";
+      snippet.style.top = "100vh";
+      snippet.style.animationDuration = Math.random() * 5 + 5 + "s";
+      background.appendChild(snippet);
 
       setTimeout(() => {
-        icon.remove();
+        snippet.remove();
       }, 10000);
     }
 
-    setInterval(createIcon, 500);
+    setInterval(createCodeSnippet, 500);
   </script>
 
 </body>
