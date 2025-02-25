@@ -45,38 +45,58 @@
       margin: 10px 0;
     }
 
-    /* Botones */
-    .button-container {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px;
-    }
-
-    #modo-btn, #back-btn {
+    /* Estilo para el botón de menú */
+    .menu-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
       background-color: #4CAF50;
       color: white;
       border: none;
       padding: 10px 20px;
-      font-size: 16px;
+      font-size: 20px;
       cursor: pointer;
       border-radius: 5px;
-      transition: background 0.3s ease, transform 0.3s ease;
+      transition: background 0.3s ease;
     }
 
-    #modo-btn:hover, #back-btn:hover {
+    .menu-btn:hover {
       background-color: #45a049;
-      transform: scale(1.1);
     }
 
-    #back-btn {
-      background-color: #f39c12;
+    /* Menú desplegable */
+    .menu-container {
+      display: none;
+      position: absolute;
+      right: 20px;
+      top: 60px;
+      background-color: #ffffff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      padding: 10px;
+      width: 200px;
+      font-family: Arial, sans-serif;
     }
 
-    #back-btn:hover {
-      background-color: #e67e22;
+    .menu-container a {
+      display: block;
+      padding: 10px;
+      text-decoration: none;
+      color: black;
+      font-size: 18px;
+      border-bottom: 1px solid #ddd;
     }
 
-    /* Información personal organizada */
+    .menu-container a:hover {
+      background-color: #f1f1f1;
+    }
+
+    /* Mostrar menú cuando está activo */
+    .menu-container.active {
+      display: block;
+    }
+
+    /* Estilos para la información personal organizada */
     .dev-container {
       text-align: center;
       margin-top: 50px;
@@ -89,31 +109,6 @@
       height: 100px;
       border-radius: 50%;
       margin-bottom: 10px;
-    }
-
-    /* Telegram Button */
-    .telegram-btn {
-      background-color: #0088cc;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 5px;
-      transition: background 0.3s ease;
-      display: inline-flex;
-      align-items: center;
-      font-weight: 500;
-    }
-
-    .telegram-btn:hover {
-      background-color: #0077b5;
-    }
-
-    .telegram-btn img {
-      width: 20px;
-      height: 20px;
-      margin-left: 8px;
     }
 
     /* Estilo para la historia cargada */
@@ -146,14 +141,6 @@
     .light-mode .info-container {
       color: black; /* Letras negras en modo claro */
     }
-
-    .dark-mode .telegram-btn {
-      color: white; /* Texto blanco en modo oscuro */
-    }
-
-    .light-mode .telegram-btn {
-      color: black; /* Texto negro en modo claro */
-    }
   </style>
   <!-- Añadir la fuente de Replit -->
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -163,10 +150,15 @@
   <!-- Fondo animado -->
   <div class="background"></div>
 
-  <!-- Botones alineados en la parte superior -->
-  <div class="button-container">
-    <button id="back-btn" onclick="window.location.href='{{ url_for('portada') }}'">⬅ Volver atrás</button>
-    <button id="modo-btn">🌙 Modo oscuro</button>
+  <!-- Botón de menú -->
+  <button class="menu-btn" id="menu-btn">☰ Menú</button>
+
+  <!-- Menú desplegable -->
+  <div class="menu-container" id="menu-container">
+    <a href="#mi-cuenta">Mi cuenta</a>
+    <a href="#configuraciones">Configuraciones</a>
+    <a href="#ayuda">Ayuda</a>
+    <a href="#preguntas-frecuentes">Preguntas Frecuentes</a>
   </div>
 
   <!-- Contenedor de información personal -->
@@ -180,12 +172,6 @@
   <!-- Contenido principal -->
   <section class="dev-container">
     <img src="{{ url_for('static', filename='img/perfil.jpg') }}" alt="Perfil"> <!-- Asegúrate de que la imagen esté en la ruta correcta -->
-    <a href="https://t.me/exzzex" target="_blank">
-      <button class="telegram-btn">
-        Telegram
-        <img src="https://iconduck.com/icons/77052/telegram" alt="Telegram Logo">
-      </button>
-    </a>
   </section>
 
   <!-- Historia cargada desde una fuente externa -->
@@ -208,20 +194,12 @@
         console.error('Error al cargar la historia:', error);
       });
 
-    // Modo oscuro y claro
-    const modoBtn = document.getElementById("modo-btn");
-    const body = document.body;
+    // Funcionalidad para el menú desplegable
+    const menuBtn = document.getElementById("menu-btn");
+    const menuContainer = document.getElementById("menu-container");
 
-    modoBtn.addEventListener("click", function () {
-      if (body.classList.contains("light-mode")) {
-        body.classList.remove("light-mode");
-        body.classList.add("dark-mode");
-        modoBtn.textContent = "☀️ Modo claro";
-      } else {
-        body.classList.remove("dark-mode");
-        body.classList.add("light-mode");
-        modoBtn.textContent = "🌙 Modo oscuro";
-      }
+    menuBtn.addEventListener("click", function () {
+      menuContainer.classList.toggle("active");
     });
   </script>
 
