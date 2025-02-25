@@ -91,6 +91,7 @@
       margin-bottom: 10px;
     }
 
+    /* Telegram Button */
     .telegram-btn {
       background-color: #0088cc;
       color: white;
@@ -100,10 +101,19 @@
       cursor: pointer;
       border-radius: 5px;
       transition: background 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      font-weight: 500;
     }
 
     .telegram-btn:hover {
       background-color: #0077b5;
+    }
+
+    .telegram-btn img {
+      width: 20px;
+      height: 20px;
+      margin-left: 8px;
     }
 
     /* Estilo para la historia cargada */
@@ -126,6 +136,23 @@
     @keyframes scrollText {
       0% { transform: translateX(100%); }
       100% { transform: translateX(-100%); }
+    }
+
+    /* Modo oscuro y claro */
+    .dark-mode .info-container {
+      color: white; /* Letras blancas en modo oscuro */
+    }
+
+    .light-mode .info-container {
+      color: black; /* Letras negras en modo claro */
+    }
+
+    .dark-mode .telegram-btn {
+      color: white; /* Texto blanco en modo oscuro */
+    }
+
+    .light-mode .telegram-btn {
+      color: black; /* Texto negro en modo claro */
     }
   </style>
   <!-- Añadir la fuente de Replit -->
@@ -153,9 +180,12 @@
   <!-- Contenido principal -->
   <section class="dev-container">
     <img src="{{ url_for('static', filename='img/perfil.jpg') }}" alt="Perfil">
-    <button class="telegram-btn" onclick="window.open('https://t.me/exzzex', '_blank')">
-      📩 Contactar en Telegram
-    </button>
+    <a href="https://t.me/exzzex" target="_blank">
+      <button class="telegram-btn">
+        Telegram
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Telegram_Logo.png" alt="Telegram Logo">
+      </button>
+    </a>
   </section>
 
   <!-- Historia cargada desde una fuente externa -->
