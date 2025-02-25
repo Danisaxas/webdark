@@ -7,6 +7,17 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   <style>
     /* Estilos para la página del desarrollador */
+    body {
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .light-mode {
+      background-color: white;
+      color: black;
+    }
+    .dark-mode {
+      background-color: #121212;
+      color: white;
+    }
     .dev-container {
       text-align: center;
       margin-top: 50px;
@@ -30,23 +41,28 @@
     .telegram-btn:hover {
       background-color: #0077b5;
     }
-    /* Botón de modo oscuro/claro similar al de index */
+    /* Botón de modo oscuro/claro con mayor área de clic */
     #modo-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 160px;
+      height: 50px;
       background-color: #4CAF50;
       color: white;
       border: none;
-      padding: 10px 20px;
       font-size: 16px;
       cursor: pointer;
       transition: transform 0.3s ease, background-color 0.3s ease;
       border-radius: 5px;
-      margin: 5px;
+      margin: 10px auto; /* Centrado */
+      user-select: none;
     }
     #modo-btn:hover {
       background-color: #45a049;
       transform: scale(1.1);
     }
-    /* Botón para volver atrás en la esquina superior izquierda */
+    /* Botón para volver atrás */
     #back-btn {
       background-color: #f39c12;
       color: white;
@@ -64,25 +80,16 @@
       background-color: #e67e22;
       transform: scale(1.1);
     }
-    header {
-      position: relative;
-      padding: 20px;
-      /* Dejamos el header sin título para que se vea solo el botón de volver */
-      text-align: center;
-    }
   </style>
 </head>
 <body class="light-mode">
-  <!-- 🔥 Preloader (opcional) 🔥 -->
   <div id="preloader">
     <div class="loader"></div>
   </div>
 
-  <!-- 🔥 Botón de modo oscuro/claro 🔥 -->
   <button id="modo-btn">🌙 Modo oscuro</button>
 
   <header>
-    <!-- Botón "Volver atrás" en la esquina superior izquierda -->
     <button id="back-btn" onclick="window.location.href='{{ url_for('portada') }}'">⬅ Volver atrás</button>
   </header>
 
@@ -99,7 +106,6 @@
     <p>&copy; 2025 Darkness e.x</p>
   </footer>
 
-  <!-- 🔥 JavaScript para preloader y modo oscuro/claro 🔥 -->
   <script>
     // Ocultar preloader al cargar la página
     window.onload = function() {
@@ -111,15 +117,9 @@
     const body = document.body;
 
     modoBtn.addEventListener("click", function () {
-      if (body.classList.contains("light-mode")) {
-        body.classList.remove("light-mode");
-        body.classList.add("dark-mode");
-        modoBtn.textContent = "☀️ Modo claro";
-      } else {
-        body.classList.remove("dark-mode");
-        body.classList.add("light-mode");
-        modoBtn.textContent = "🌙 Modo oscuro";
-      }
+      body.classList.toggle("dark-mode");
+      body.classList.toggle("light-mode");
+      modoBtn.textContent = body.classList.contains("dark-mode") ? "☀️ Modo claro" : "🌙 Modo oscuro";
     });
   </script>
 </body>
