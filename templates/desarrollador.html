@@ -32,42 +32,6 @@
       background: #121212;
     }
 
-    /* Fragmentos de código animados */
-    .code-snippet {
-      position: absolute;
-      font-size: 18px;
-      font-family: monospace;
-      opacity: 0.9;
-      white-space: nowrap;
-      animation: moveLeft 12s linear infinite;
-    }
-
-    /* Estilos para los iconos de código */
-    .code-icon {
-      display: inline-block;
-      padding: 15px 25px;
-      margin: 15px;
-      background-color: #1e2a38; /* Azul marina */
-      color: white;
-      font-size: 24px;
-      font-family: 'Courier New', monospace;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-      opacity: 0.9;
-      transform: translateY(0);
-      transition: transform 0.3s ease;
-    }
-
-    .code-icon:hover {
-      transform: translateY(-10px);
-    }
-
-    /* Animación horizontal (de derecha a izquierda) */
-    @keyframes moveLeft {
-      from { transform: translateX(100vw); }
-      to { transform: translateX(-100vw); }
-    }
-
     /* Contenedor de botones */
     .button-container {
       display: flex;
@@ -130,24 +94,30 @@
       background-color: #0077b5;
     }
 
-    /* Estilo para la historia de Python */
-    .history {
-      font-size: 16px;
-      color: #fff;
-      text-align: center;
-      margin-top: 20px;
-      white-space: nowrap;
+    /* Estilos para la historia de Python */
+    .history-container {
+      margin-top: 50px;
+      padding: 20px;
+      background-color: #f4f4f4;
+      border-radius: 5px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
       overflow: hidden;
     }
 
-    .history span {
-      display: inline-block;
-      animation: scrollText 20s linear infinite;
+    .history-content {
+      white-space: nowrap;
+      animation: scroll-left 60s linear infinite;
     }
 
-    @keyframes scrollText {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
+    @keyframes scroll-left {
+      from {
+        transform: translateX(100%);
+      }
+      to {
+        transform: translateX(-100%);
+      }
     }
   </style>
 </head>
@@ -172,21 +142,13 @@
     </button>
   </section>
 
-  <!-- Iconos de programación como elementos de texto -->
-  <section class="code-snippets">
-    <div class="code-icon">&lt;code&gt;</div>
-    <div class="code-icon">echo "Hello World";</div>
-    <div class="code-icon">&lt;?php echo "PHP"; ?&gt;</div>
-    <div class="code-icon">console.log("JavaScript");</div>
-    <div class="code-icon">SELECT * FROM users;</div>
-  </section>
-
   <!-- Historia de Python -->
-  <div class="history">
-    <span>
-      Python es un lenguaje de programación interpretado, de alto nivel, creado por Guido van Rossum en 1991. Fue diseñado para ser fácil de leer y escribir, con una sintaxis clara y un fuerte enfoque en la legibilidad del código. Ha ganado popularidad por su simplicidad y potencia, siendo usado en diversos campos, desde desarrollo web hasta inteligencia artificial.
-    </span>
-  </div>
+  <section class="history-container">
+    <h2>Historia de Python</h2>
+    <div class="history-content">
+      <p>Python es un lenguaje de programación de alto nivel creado a finales de los años 80 por Guido van Rossum en el Centro de Matemática y Computación (CWI) en los Países Bajos. Su implementación comenzó en diciembre de 1989 como un sucesor del lenguaje ABC, con la intención de manejar excepciones e interactuar con el sistema operativo Amoeba. El nombre "Python" proviene de la afición de van Rossum por el grupo de comedia británico Monty Python. El 20 de febrero de 1991, van Rossum publicó el código por primera vez en alt.sources, con la versión 0.9.0. En esta etapa, ya estaban presentes clases con herencia, manejo de excepciones, funciones y tipos modulares como `str`, `list`, `dict`, entre otros. Además, se introdujo un sistema de módulos adoptado de Modula-3. En 1994, se formó el foro de discusión principal de Python, comp.lang.python, marcando un hito en el crecimiento de la comunidad de usuarios de este lenguaje. Python alcanzó la versión 1.0 en enero de 1994, incorporando herramientas de programación funcional como `lambda`, `reduce`, `filter` y `map`. La última versión de la serie Python 2.x, Python 2.7.x, fue oficialmente descontinuada el 1 de enero de 2020. Actualmente, Python se aplica en campos como inteligencia artificial y machine learning. [Fuente: Wikipedia]</p>
+    </div>
+  </section>
 
   <footer>
     <p>&copy; 2025 Darkness e.x</p>
@@ -209,40 +171,6 @@
         modoBtn.textContent = "🌙 Modo oscuro";
       }
     });
-
-    // Fragmentos de código en movimiento
-    const codeSnippets = [
-      '<section class="dev-container">', // HTML
-      'def hello_world():',               // Python
-      '  print("Hola Mundo")',            // Python
-      'console.log("Hola Mundo");',       // JavaScript
-      'echo "Hola Mundo";',               // PHP
-      'SELECT * FROM users;',             // SQL
-      '</section>',                        // HTML
-    ];
-
-    const colors = ['color-blue', 'color-yellow', 'color-red', 'color-green'];
-    const background = document.querySelector(".background");
-
-    function createElement(type, className, content = "") {
-      const element = document.createElement(type);
-      element.className = className;
-      element.textContent = content;
-      element.style.top = Math.random() * 100 + "vh";
-      element.style.animationDuration = Math.random() * 5 + 5 + "s";
-      return element;
-    }
-
-    function createCodeSnippet() {
-      const snippet = createElement("div", "code-snippet " + colors[Math.floor(Math.random() * colors.length)], 
-        codeSnippets[Math.floor(Math.random() * codeSnippets.length)]
-      );
-      background.appendChild(snippet);
-      setTimeout(() => snippet.remove(), 12000);
-    }
-
-    setInterval(createCodeSnippet, 500);
   </script>
-
 </body>
 </html>
