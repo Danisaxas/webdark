@@ -12,6 +12,7 @@
       padding: 0;
       font-family: Arial, sans-serif;
       transition: background 0.5s ease, color 0.5s ease;
+      overflow: hidden;
     }
 
     /* Fondo del código animado */
@@ -24,6 +25,7 @@
       z-index: -1;
       background: #ffffff;
       transition: background 0.5s ease;
+      overflow: hidden;
     }
 
     .dark-mode .background {
@@ -31,13 +33,13 @@
     }
 
     /* Fragmentos de código animados */
-    .code-snippet {
+    .code-snippet, .icon {
       position: absolute;
       font-size: 16px;
       font-family: monospace;
       opacity: 0.8;
       white-space: nowrap;
-      animation: float 10s linear infinite;
+      animation: moveLeft 10s linear infinite;
     }
 
     /* Colores estilo Python, PHP, HTML */
@@ -46,10 +48,17 @@
     .color-red { color: #E34C26; }    /* HTML */
     .color-green { color: #4F5D95; }  /* PHP */
 
-    @keyframes float {
-      0% { transform: translateY(100vh); opacity: 0; }
-      50% { opacity: 1; }
-      100% { transform: translateY(-100vh); opacity: 0; }
+    /* Iconos de lenguajes */
+    .icon {
+      width: 40px;
+      height: 40px;
+      opacity: 0.8;
+    }
+
+    /* Animación horizontal (de derecha a izquierda) */
+    @keyframes moveLeft {
+      from { transform: translateX(100vw); }
+      to { transform: translateX(-100vw); }
     }
 
     /* Contenedor de botones */
@@ -172,21 +181,40 @@
     const colors = ['color-blue', 'color-yellow', 'color-red', 'color-green'];
     const background = document.querySelector(".background");
 
-    function createCodeSnippet() {
-      const snippet = document.createElement("div");
-      snippet.textContent = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
-      snippet.classList.add("code-snippet", colors[Math.floor(Math.random() * colors.length)]);
-      snippet.style.left = Math.random() * 100 + "vw";
-      snippet.style.top = "100vh";
-      snippet.style.animationDuration = Math.random() * 5 + 5 + "s";
-      background.appendChild(snippet);
+    function createElement(type, className, content = "") {
+      const element = document.createElement(type);
+      element.className = className;
+      element.textContent = content;
+      element.style.top = Math.random() * 100 + "vh";
+      element.style.animationDuration = Math.random() * 5 + 5 + "s";
+      return element;
+    }
 
-      setTimeout(() => {
-        snippet.remove();
-      }, 10000);
+    function createCodeSnippet() {
+      const snippet = createElement("div", "code-snippet " + colors[Math.floor(Math.random() * colors.length)], 
+        codeSnippets[Math.floor(Math.random() * codeSnippets.length)]
+      );
+      background.appendChild(snippet);
+      setTimeout(() => snippet.remove(), 10000);
+    }
+
+    function createIcon() {
+      const icon = document.createElement("img");
+      icon.className = "icon";
+      icon.src = [
+        "{{ url_for('static', filename='img/python.png') }}",
+        "{{ url_for('static', filename='img/html.png') }}",
+        "{{ url_for('static', filename='img/php.png') }}",
+        "{{ url_for('static', filename='img/java.png') }}"
+      ][Math.floor(Math.random() * 4)];
+      icon.style.top = Math.random() * 100 + "vh";
+      icon.style.animationDuration = Math.random() * 5 + 5 + "s";
+      background.appendChild(icon);
+      setTimeout(() => icon.remove(), 10000);
     }
 
     setInterval(createCodeSnippet, 500);
+    setInterval(createIcon, 2000);
   </script>
 
 </body>
