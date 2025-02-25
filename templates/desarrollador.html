@@ -32,6 +32,42 @@
       background: #121212;
     }
 
+    /* Fragmentos de código animados */
+    .code-snippet, .icon {
+      position: absolute;
+      font-size: 16px;
+      font-family: monospace;
+      opacity: 0.8;
+      white-space: nowrap;
+      animation: moveLeft 12s linear infinite;
+    }
+
+    /* Colores estilo Python, PHP, HTML */
+    .color-blue { color: #3572A5; }   /* Python */
+    .color-yellow { color: #F7DF1E; } /* JavaScript */
+    .color-red { color: #E34C26; }    /* HTML */
+    .color-green { color: #4F5D95; }  /* PHP */
+
+    /* Iconos de lenguajes (dibujados como cajas de texto) */
+    .icon {
+      width: 50px;
+      height: 50px;
+      opacity: 0.8;
+      display: inline-block;
+      text-align: center;
+      line-height: 50px;
+      font-size: 24px;
+      background-color: #333;
+      color: white;
+      border-radius: 5px;
+    }
+
+    /* Animación horizontal (de derecha a izquierda) */
+    @keyframes moveLeft {
+      from { transform: translateX(100vw); }
+      to { transform: translateX(-100vw); }
+    }
+
     /* Contenedor de botones */
     .button-container {
       display: flex;
@@ -94,30 +130,26 @@
       background-color: #0077b5;
     }
 
-    /* Estilos para la historia de Python */
-    .history-container {
-      margin-top: 50px;
-      padding: 20px;
-      background-color: #f4f4f4;
-      border-radius: 5px;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-      overflow: hidden;
-    }
-
-    .history-content {
+    /* Estilo para la historia cargada */
+    .history {
+      font-size: 16px;
+      color: #fff;
+      text-align: center;
+      margin-top: 20px;
       white-space: nowrap;
-      animation: scroll-left 60s linear infinite;
+      overflow: hidden;
+      font-family: monospace;
     }
 
-    @keyframes scroll-left {
-      from {
-        transform: translateX(100%);
-      }
-      to {
-        transform: translateX(-100%);
-      }
+    /* Efecto de desplazamiento de letras */
+    .history span {
+      display: inline-block;
+      animation: scrollText 20s linear infinite;
+    }
+
+    @keyframes scrollText {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
     }
   </style>
 </head>
@@ -142,13 +174,10 @@
     </button>
   </section>
 
-  <!-- Historia de Python -->
-  <section class="history-container">
-    <h2>Historia de Python</h2>
-    <div class="history-content">
-      <p>Python es un lenguaje de programación de alto nivel creado a finales de los años 80 por Guido van Rossum en el Centro de Matemática y Computación (CWI) en los Países Bajos. Su implementación comenzó en diciembre de 1989 como un sucesor del lenguaje ABC, con la intención de manejar excepciones e interactuar con el sistema operativo Amoeba. El nombre "Python" proviene de la afición de van Rossum por el grupo de comedia británico Monty Python. El 20 de febrero de 1991, van Rossum publicó el código por primera vez en alt.sources, con la versión 0.9.0. En esta etapa, ya estaban presentes clases con herencia, manejo de excepciones, funciones y tipos modulares como `str`, `list`, `dict`, entre otros. Además, se introdujo un sistema de módulos adoptado de Modula-3. En 1994, se formó el foro de discusión principal de Python, comp.lang.python, marcando un hito en el crecimiento de la comunidad de usuarios de este lenguaje. Python alcanzó la versión 1.0 en enero de 1994, incorporando herramientas de programación funcional como `lambda`, `reduce`, `filter` y `map`. La última versión de la serie Python 2.x, Python 2.7.x, fue oficialmente descontinuada el 1 de enero de 2020. Actualmente, Python se aplica en campos como inteligencia artificial y machine learning. [Fuente: Wikipedia]</p>
-    </div>
-  </section>
+  <!-- Historia cargada desde una fuente externa -->
+  <div class="history">
+    <span id="history-text"></span>
+  </div>
 
   <footer>
     <p>&copy; 2025 Darkness e.x</p>
@@ -156,6 +185,16 @@
 
   <!-- JavaScript -->
   <script>
+    // Cargar la historia desde un archivo externo
+    fetch('https://mi-pagina-externa.com/historia')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('history-text').textContent = data;
+      })
+      .catch(error => {
+        console.error('Error al cargar la historia:', error);
+      });
+
     // Modo oscuro y claro
     const modoBtn = document.getElementById("modo-btn");
     const body = document.body;
@@ -172,5 +211,6 @@
       }
     });
   </script>
+
 </body>
 </html>
