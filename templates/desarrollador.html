@@ -183,8 +183,41 @@
     <p>&copy; 2025 Darkness e.x</p>
   </footer>
 
-  <!-- JavaScript -->
+  <!-- Fragmentos de código en movimiento -->
   <script>
+    // Fragmentos de código animados
+    const codeSnippets = [
+      '<section class="dev-container">', // HTML
+      'def hello_world():',               // Python
+      '  print("Hola Mundo")',            // Python
+      'console.log("Hola Mundo");',       // JavaScript
+      'echo "Hola Mundo";',               // PHP
+      'SELECT * FROM users;',             // SQL
+      '</section>',                       // HTML
+    ];
+
+    const container = document.querySelector('.background');
+    
+    function displayCode() {
+      codeSnippets.forEach((snippet, index) => {
+        const snippetElement = document.createElement('div');
+        snippetElement.textContent = snippet;
+        snippetElement.classList.add('code-snippet');
+        
+        if (index % 4 === 0) snippetElement.classList.add('color-blue');  // Python
+        if (index % 4 === 1) snippetElement.classList.add('color-yellow'); // JavaScript
+        if (index % 4 === 2) snippetElement.classList.add('color-green');  // PHP
+        if (index % 4 === 3) snippetElement.classList.add('color-red');    // HTML
+        
+        // Asegurarse de que cada fragmento de código se mueva en la pantalla
+        snippetElement.style.top = `${(Math.random() * 90)}vh`;
+        snippetElement.style.animationDelay = `${Math.random() * 5}s`;
+        container.appendChild(snippetElement);
+      });
+    }
+
+    displayCode();
+
     // Cargar la historia desde un archivo externo
     fetch('https://mi-pagina-externa.com/historia')
       .then(response => response.text())
