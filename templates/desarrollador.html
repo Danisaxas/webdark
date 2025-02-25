@@ -39,7 +39,7 @@
       font-family: monospace;
       opacity: 0.8;
       white-space: nowrap;
-      animation: moveLeft 10s linear infinite;
+      animation: moveLeft 12s linear infinite;
     }
 
     /* Colores estilo Python, PHP, HTML */
@@ -48,11 +48,18 @@
     .color-red { color: #E34C26; }    /* HTML */
     .color-green { color: #4F5D95; }  /* PHP */
 
-    /* Iconos de lenguajes */
+    /* Iconos de lenguajes (dibujados como cajas de texto) */
     .icon {
-      width: 40px;
-      height: 40px;
+      width: 50px;
+      height: 50px;
       opacity: 0.8;
+      display: inline-block;
+      text-align: center;
+      line-height: 50px;
+      font-size: 24px;
+      background-color: #333;
+      color: white;
+      border-radius: 5px;
     }
 
     /* Animación horizontal (de derecha a izquierda) */
@@ -122,6 +129,26 @@
     .telegram-btn:hover {
       background-color: #0077b5;
     }
+
+    /* Estilo para la historia de Python */
+    .history {
+      font-size: 16px;
+      color: #fff;
+      text-align: center;
+      margin-top: 20px;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .history span {
+      display: inline-block;
+      animation: scrollText 20s linear infinite;
+    }
+
+    @keyframes scrollText {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
   </style>
 </head>
 <body class="light-mode">
@@ -144,6 +171,12 @@
       📩 Contactar en Telegram
     </button>
   </section>
+
+  <div class="history">
+    <span>
+      Python es un lenguaje de programación interpretado, de alto nivel, creado por Guido van Rossum en 1991. Fue diseñado para ser fácil de leer y escribir, con una sintaxis clara y un fuerte enfoque en la legibilidad del código. Ha ganado popularidad por su simplicidad y potencia, siendo usado en diversos campos, desde desarrollo web hasta inteligencia artificial.
+    </span>
+  </div>
 
   <footer>
     <p>&copy; 2025 Darkness e.x</p>
@@ -195,22 +228,19 @@
         codeSnippets[Math.floor(Math.random() * codeSnippets.length)]
       );
       background.appendChild(snippet);
-      setTimeout(() => snippet.remove(), 10000);
+      setTimeout(() => snippet.remove(), 12000);
     }
 
     function createIcon() {
-      const icon = document.createElement("img");
+      const icon = document.createElement("div");
       icon.className = "icon";
-      icon.src = [
-        "{{ url_for('static', filename='img/python.png') }}",
-        "{{ url_for('static', filename='img/html.png') }}",
-        "{{ url_for('static', filename='img/php.png') }}",
-        "{{ url_for('static', filename='img/java.png') }}"
+      icon.textContent = [
+        "PY", "JS", "PHP", "HTML"
       ][Math.floor(Math.random() * 4)];
       icon.style.top = Math.random() * 100 + "vh";
       icon.style.animationDuration = Math.random() * 5 + 5 + "s";
       background.appendChild(icon);
-      setTimeout(() => icon.remove(), 10000);
+      setTimeout(() => icon.remove(), 12000);
     }
 
     setInterval(createCodeSnippet, 500);
