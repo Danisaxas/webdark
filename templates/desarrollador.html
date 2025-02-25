@@ -32,50 +32,26 @@
       background: #121212;
     }
 
-    /* Fragmentos de código animados */
-    .code-snippet, .icon {
-      position: absolute;
-      font-size: 16px;
-      font-family: monospace;
-      opacity: 0.8;
-      white-space: nowrap;
-      animation: moveLeft 12s linear infinite;
-    }
-
-    /* Colores estilo Python, PHP, HTML */
-    .color-blue { color: #3572A5; }   /* Python */
-    .color-yellow { color: #F7DF1E; } /* JavaScript */
-    .color-red { color: #E34C26; }    /* HTML */
-    .color-green { color: #4F5D95; }  /* PHP */
-
-    /* Iconos de lenguajes (dibujados como cajas de texto) */
-    .icon {
-      width: 50px;
-      height: 50px;
-      opacity: 0.8;
-      display: inline-block;
+    /* Estilos para la información personal */
+    .info-container {
       text-align: center;
-      line-height: 50px;
+      margin-top: 50px;
+      font-family: 'Replit', monospace; /* Usando fuente de Replit */
       font-size: 24px;
-      background-color: #333;
-      color: white;
-      border-radius: 5px;
+      color: #fff;
     }
 
-    /* Animación horizontal (de derecha a izquierda) */
-    @keyframes moveLeft {
-      from { transform: translateX(100vw); }
-      to { transform: translateX(-100vw); }
+    .info-container p {
+      margin: 10px 0;
     }
 
-    /* Contenedor de botones */
+    /* Botones */
     .button-container {
       display: flex;
       justify-content: space-between;
       padding: 10px;
     }
 
-    /* Botones */
     #modo-btn, #back-btn {
       background-color: #4CAF50;
       color: white;
@@ -100,7 +76,7 @@
       background-color: #e67e22;
     }
 
-    /* Contenido principal */
+    /* Información personal organizada */
     .dev-container {
       text-align: center;
       margin-top: 50px;
@@ -152,6 +128,8 @@
       100% { transform: translateX(-100%); }
     }
   </style>
+  <!-- Añadir la fuente de Replit -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body class="light-mode">
   
@@ -164,11 +142,17 @@
     <button id="modo-btn">🌙 Modo oscuro</button>
   </div>
 
+  <!-- Contenedor de información personal -->
+  <div class="info-container">
+    <p><strong>Nombre:</strong> Daniel</p>
+    <p><strong>Edad:</strong> 15 años</p>
+    <p><strong>Team:</strong> 33k</p>
+    <p><strong>Country:</strong> Venezuela</p>
+  </div>
+
   <!-- Contenido principal -->
   <section class="dev-container">
     <img src="{{ url_for('static', filename='img/perfil.jpg') }}" alt="Perfil">
-    <p><strong>Nombre:</strong> Daniel</p>
-    <p><strong>Edad:</strong> 15</p>
     <button class="telegram-btn" onclick="window.open('https://t.me/exzzex', '_blank')">
       📩 Contactar en Telegram
     </button>
@@ -183,41 +167,7 @@
     <p>&copy; 2025 Darkness e.x</p>
   </footer>
 
-  <!-- Fragmentos de código en movimiento -->
   <script>
-    // Fragmentos de código animados
-    const codeSnippets = [
-      '<section class="dev-container">', // HTML
-      'def hello_world():',               // Python
-      '  print("Hola Mundo")',            // Python
-      'console.log("Hola Mundo");',       // JavaScript
-      'echo "Hola Mundo";',               // PHP
-      'SELECT * FROM users;',             // SQL
-      '</section>',                       // HTML
-    ];
-
-    const container = document.querySelector('.background');
-    
-    function displayCode() {
-      codeSnippets.forEach((snippet, index) => {
-        const snippetElement = document.createElement('div');
-        snippetElement.textContent = snippet;
-        snippetElement.classList.add('code-snippet');
-        
-        if (index % 4 === 0) snippetElement.classList.add('color-blue');  // Python
-        if (index % 4 === 1) snippetElement.classList.add('color-yellow'); // JavaScript
-        if (index % 4 === 2) snippetElement.classList.add('color-green');  // PHP
-        if (index % 4 === 3) snippetElement.classList.add('color-red');    // HTML
-        
-        // Asegurarse de que cada fragmento de código se mueva en la pantalla
-        snippetElement.style.top = `${(Math.random() * 90)}vh`;
-        snippetElement.style.animationDelay = `${Math.random() * 5}s`;
-        container.appendChild(snippetElement);
-      });
-    }
-
-    displayCode();
-
     // Cargar la historia desde un archivo externo
     fetch('https://mi-pagina-externa.com/historia')
       .then(response => response.text())
