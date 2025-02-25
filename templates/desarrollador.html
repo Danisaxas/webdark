@@ -6,21 +6,28 @@
   <title>Desarrollador</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   <style>
-    /* Estilos para la página del desarrollador */
+    /* Fondo animado */
     body {
-      transition: background-color 0.3s, color 0.3s;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
     }
-    .light-mode {
-      background-color: white;
-      color: black;
-    }
-    .dark-mode {
-      background-color: #121212;
-      color: white;
+    .background {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      background: url('{{ url_for('static', filename='img/code-bg.gif') }}') repeat;
+      background-size: cover;
+      filter: brightness(0.5);
     }
     .dev-container {
       text-align: center;
       margin-top: 50px;
+      color: white;
     }
     .dev-container img {
       width: 100px;
@@ -28,42 +35,41 @@
       border-radius: 50%;
       margin-bottom: 10px;
     }
-    .telegram-btn {
-      background-color: #0088cc;
-      color: white;
-      border: none;
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .telegram-btn, #modo-btn {
       padding: 10px 20px;
       font-size: 16px;
       cursor: pointer;
       border-radius: 5px;
-      transition: background 0.3s ease;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .telegram-btn {
+      background-color: #0088cc;
+      color: white;
+      border: none;
     }
     .telegram-btn:hover {
       background-color: #0077b5;
+      transform: scale(1.1);
     }
-    /* Botón de modo oscuro/claro con mayor área de clic */
     #modo-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 160px;
-      height: 50px;
       background-color: #4CAF50;
       color: white;
       border: none;
-      font-size: 16px;
-      cursor: pointer;
-      transition: transform 0.3s ease, background-color 0.3s ease;
-      border-radius: 5px;
-      margin: 10px auto; /* Centrado */
-      user-select: none;
     }
     #modo-btn:hover {
       background-color: #45a049;
       transform: scale(1.1);
     }
-    /* Botón para volver atrás */
     #back-btn {
+      position: absolute;
+      left: 10px;
+      top: 10px;
       background-color: #f39c12;
       color: white;
       border: none;
@@ -71,10 +77,7 @@
       font-size: 16px;
       cursor: pointer;
       border-radius: 5px;
-      transition: transform 0.3s ease, background-color 0.3s ease;
-      position: absolute;
-      left: 10px;
-      top: 10px;
+      transition: background 0.3s ease, transform 0.3s ease;
     }
     #back-btn:hover {
       background-color: #e67e22;
@@ -82,44 +85,29 @@
     }
   </style>
 </head>
-<body class="light-mode">
-  <div id="preloader">
-    <div class="loader"></div>
-  </div>
-
-  <button id="modo-btn">🌙 Modo oscuro</button>
-
-  <header>
-    <button id="back-btn" onclick="window.location.href='{{ url_for('portada') }}'">⬅ Volver atrás</button>
-  </header>
-
+<body>
+  <div class="background"></div>
+  <button id="back-btn" onclick="window.location.href='{{ url_for('portada') }}'">⬅ Volver atrás</button>
   <section class="dev-container">
     <img src="{{ url_for('static', filename='img/perfil.jpg') }}" alt="Perfil">
     <p><strong>Nombre:</strong> Daniel</p>
     <p><strong>Edad:</strong> 15</p>
-    <button class="telegram-btn" onclick="window.open('https://t.me/exzzex', '_blank')">
-      📩 Contactar en Telegram
-    </button>
+    <div class="btn-container">
+      <button class="telegram-btn" onclick="window.open('https://t.me/exzzex', '_blank')">📩 Contactar en Telegram</button>
+      <button id="modo-btn">🌙 Modo oscuro</button>
+    </div>
   </section>
-
-  <footer>
-    <p>&copy; 2025 Darkness e.x</p>
-  </footer>
-
   <script>
-    // Ocultar preloader al cargar la página
-    window.onload = function() {
-      document.getElementById("preloader").style.display = "none";
-    };
-
-    // Modo oscuro y claro
     const modoBtn = document.getElementById("modo-btn");
     const body = document.body;
-
     modoBtn.addEventListener("click", function () {
-      body.classList.toggle("dark-mode");
-      body.classList.toggle("light-mode");
-      modoBtn.textContent = body.classList.contains("dark-mode") ? "☀️ Modo claro" : "🌙 Modo oscuro";
+      if (body.classList.contains("dark-mode")) {
+        body.classList.remove("dark-mode");
+        modoBtn.textContent = "🌙 Modo oscuro";
+      } else {
+        body.classList.add("dark-mode");
+        modoBtn.textContent = "☀️ Modo claro";
+      }
     });
   </script>
 </body>
