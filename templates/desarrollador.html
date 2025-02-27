@@ -39,29 +39,28 @@
       font-family: 'Replit', monospace; /* Usando fuente de Replit */
       font-size: 24px;
       color: #fff;
+      padding: 10px;
     }
 
     .info-container p {
       margin: 10px 0;
     }
 
-    /* Estilo para el botón de menú */
+    /* Estilo para el icono de menú */
     .menu-btn {
       position: absolute;
       top: 20px;
       left: 20px;
-      background-color: #4CAF50;
-      color: white;
+      font-size: 30px;
+      background: none;
       border: none;
-      padding: 10px 20px;
-      font-size: 20px;
+      color: #fff;
       cursor: pointer;
-      border-radius: 5px;
-      transition: background 0.3s ease;
+      z-index: 999;
     }
 
     .menu-btn:hover {
-      background-color: #45a049;
+      color: #4CAF50;
     }
 
     /* Menú desplegable */
@@ -76,6 +75,7 @@
       padding: 10px;
       width: 250px;
       font-family: Arial, sans-serif;
+      z-index: 998;
     }
 
     .menu-container a {
@@ -107,8 +107,8 @@
     }
 
     .dev-container img {
-      width: 100px;
-      height: 100px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
       margin-bottom: 10px;
     }
@@ -121,6 +121,13 @@
     .light-mode .info-container {
       color: black; /* Letras negras en modo claro */
     }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 14px;
+      color: #777;
+    }
   </style>
   <!-- Añadir la fuente de Replit -->
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -130,8 +137,8 @@
   <!-- Fondo animado -->
   <div class="background"></div>
 
-  <!-- Botón de menú -->
-  <button class="menu-btn" id="menu-btn">☰ Menú</button>
+  <!-- Icono de menú -->
+  <button class="menu-btn" id="menu-btn">&#9776;</button>
 
   <!-- Menú desplegable -->
   <div class="menu-container" id="menu-container">
