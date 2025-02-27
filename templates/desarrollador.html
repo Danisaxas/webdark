@@ -113,28 +113,6 @@
       margin-bottom: 10px;
     }
 
-    /* Estilo para la historia cargada */
-    .history {
-      font-size: 16px;
-      color: #fff;
-      text-align: center;
-      margin-top: 20px;
-      white-space: nowrap;
-      overflow: hidden;
-      font-family: monospace;
-    }
-
-    /* Efecto de desplazamiento de letras */
-    .history span {
-      display: inline-block;
-      animation: scrollText 20s linear infinite;
-    }
-
-    @keyframes scrollText {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
-    }
-
     /* Modo oscuro y claro */
     .dark-mode .info-container {
       color: white; /* Letras blancas en modo oscuro */
@@ -176,26 +154,11 @@
     <img src="{{ url_for('static', filename='img/perfil.jpg') }}" alt="Perfil"> <!-- Asegúrate de que la imagen esté en la ruta correcta -->
   </section>
 
-  <!-- Historia cargada desde una fuente externa -->
-  <div class="history">
-    <span id="history-text"></span>
-  </div>
-
   <footer>
     <p>&copy; 2025 Darkness e.x</p>
   </footer>
 
   <script>
-    // Cargar la historia desde un archivo externo
-    fetch('https://mi-pagina-externa.com/historia')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('history-text').textContent = data;
-      })
-      .catch(error => {
-        console.error('Error al cargar la historia:', error);
-      });
-
     // Funcionalidad para el menú desplegable
     const menuBtn = document.getElementById("menu-btn");
     const menuContainer = document.getElementById("menu-container");
