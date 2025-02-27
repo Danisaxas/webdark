@@ -1,6 +1,10 @@
-from flask import Flask, render_template
+from flask import Flask, redirect
 
 app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return redirect("https://darkabout.xyz/desarrollador")
 
 @app.route('/desarrollador')
 def desarrollador():
