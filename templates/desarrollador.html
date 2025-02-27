@@ -24,6 +24,7 @@
       height: 100%;
       z-index: -1;
       background: #ffffff;
+      backdrop-filter: blur(15px); /* Fondo desenfocado sin color */
       transition: background 0.5s ease;
       overflow: hidden;
     }
@@ -35,7 +36,7 @@
     /* Estilos para la información personal */
     .info-container {
       text-align: center;
-      margin-top: 50px;
+      margin-top: 20px;
       font-family: 'Replit', monospace; /* Usando fuente de Replit */
       font-size: 24px;
       color: #fff;
@@ -44,6 +45,14 @@
 
     .info-container p {
       margin: 10px 0;
+    }
+
+    /* Estilo para la imagen */
+    .profile-img {
+      width: 150px; /* Tamaño mediano */
+      height: auto;
+      border-radius: 50%;
+      margin-top: 20px;
     }
 
     /* Estilo para el icono de menú */
@@ -115,15 +124,12 @@
 
     /* Contenedor de la luna y el sol */
     .icon-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 15px;
-    }
-
-    .icon-container i {
-      font-size: 25px;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 30px;
       cursor: pointer;
+      z-index: 1000;
     }
 
     footer {
@@ -141,6 +147,9 @@
   <!-- Fondo animado -->
   <div class="background"></div>
 
+  <!-- Icono de luna para cambiar el modo -->
+  <i id="theme-icon" class="fa fa-moon icon-container"></i>
+
   <!-- Icono de menú -->
   <button class="menu-btn" id="menu-btn">&#9776;</button>
 
@@ -150,15 +159,11 @@
     <a href="#configuraciones">Configuraciones</a>
     <a href="#ayuda">Ayuda</a>
     <a href="#preguntas-frecuentes">Preguntas Frecuentes</a>
-
-    <!-- Contenedor de luna y sol -->
-    <div class="icon-container">
-      <i id="theme-icon" class="fa fa-moon"></i> <!-- Luna por defecto -->
-    </div>
   </div>
 
   <!-- Contenedor de información personal -->
   <div class="info-container">
+    <img src="{{ url_for('static', filename='img/perfil.jpg') }}" alt="Perfil" class="profile-img"> <!-- Asegúrate de que la imagen esté en la ruta correcta -->
     <p><strong>Nombre:</strong> Daniel</p>
     <p><strong>Edad:</strong> 15 años</p>
     <p><strong>Team:</strong> 33k</p>
