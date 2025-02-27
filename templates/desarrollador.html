@@ -71,20 +71,23 @@
       position: absolute;
       left: 20px;
       top: 70px;
-      background-color: #ffffff;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      border-radius: 5px;
-      padding: 10px;
+      background: linear-gradient(135deg, #6e7bff, #3a4a93); /* Gradiente de colores */
+      backdrop-filter: blur(10px); /* Desenfoque de fondo */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      padding: 20px;
       width: 250px;
       font-family: Arial, sans-serif;
       z-index: 998;
+      color: white;
+      transition: background 0.3s ease;
     }
 
     .menu-container a {
       display: block;
       padding: 12px 20px;
       text-decoration: none;
-      color: black;
+      color: white;
       font-size: 18px;
       border-bottom: 1px solid #ddd;
       border-radius: 5px;
@@ -93,26 +96,12 @@
 
     .menu-container a:hover {
       background-color: #f1f1f1;
+      color: black;
     }
 
     /* Mostrar menú cuando está activo */
     .menu-container.active {
       display: block;
-    }
-
-    /* Estilos para la información personal organizada */
-    .dev-container {
-      text-align: center;
-      margin-top: 50px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .dev-container img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      margin-bottom: 10px;
     }
 
     /* Modo oscuro y claro */
@@ -122,6 +111,19 @@
 
     .light-mode .info-container {
       color: black; /* Letras negras en modo claro */
+    }
+
+    /* Contenedor de la luna y el sol */
+    .icon-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 15px;
+    }
+
+    .icon-container i {
+      font-size: 25px;
+      cursor: pointer;
     }
 
     footer {
@@ -148,6 +150,11 @@
     <a href="#configuraciones">Configuraciones</a>
     <a href="#ayuda">Ayuda</a>
     <a href="#preguntas-frecuentes">Preguntas Frecuentes</a>
+
+    <!-- Contenedor de luna y sol -->
+    <div class="icon-container">
+      <i id="theme-icon" class="fa fa-moon"></i> <!-- Luna por defecto -->
+    </div>
   </div>
 
   <!-- Contenedor de información personal -->
@@ -171,11 +178,31 @@
     // Funcionalidad para el menú desplegable
     const menuBtn = document.getElementById("menu-btn");
     const menuContainer = document.getElementById("menu-container");
+    const themeIcon = document.getElementById("theme-icon");
+    const body = document.body;
 
     menuBtn.addEventListener("click", function () {
       menuContainer.classList.toggle("active");
     });
+
+    // Cambio entre modo claro y oscuro
+    themeIcon.addEventListener("click", function () {
+      body.classList.toggle("dark-mode");
+      body.classList.toggle("light-mode");
+
+      // Cambiar icono entre luna y sol
+      if (body.classList.contains("dark-mode")) {
+        themeIcon.classList.remove("fa-moon");
+        themeIcon.classList.add("fa-sun");
+      } else {
+        themeIcon.classList.remove("fa-sun");
+        themeIcon.classList.add("fa-moon");
+      }
+    });
   </script>
+
+  <!-- Incluir los íconos de FontAwesome -->
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
 </body>
 </html>
